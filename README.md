@@ -14,8 +14,8 @@ A full-stack task manager with a layered Node.js/Express API, a React client, an
 ## Contents
 
 1. [Features](#features)
-2. [Quick start](#quick-start)
-3. [Configuration](#configuration)
+2. [Setup](#setup)
+3. [Environment variables](#environment-variables)
 4. [API reference](#api-reference)
 5. [Real-time events](#real-time-events)
 6. [Architecture](#architecture)
@@ -49,34 +49,143 @@ A full-stack task manager with a layered Node.js/Express API, a React client, an
 
 ---
 
-## Quick start
+## Setup
 
-**Prerequisites:** Node.js and npm. Developed and tested on Node 23.11 / npm 10.9.
+### 1. Prerequisites
+
+- **Node.js and npm.** Developed and tested on Node 23.11 and npm 10.9.
+- **Git**
+- **Free ports 4000 and 5173.** Both can be changed; see [Troubleshooting](#troubleshooting).
+
+### 2. Clone the repository
 
 ```bash
-git clone <this-repo-url>
+git clone https://github.com/DeekshaAbacusDesk/task-portal.git
 cd task-portal
+```
 
-# 1. API — http://localhost:4000
+### 3. Create the environment files
+
+Each app ships a `.env.example`. Copy it to `.env`; the defaults work for local development as they are.
+
+```bash
+# macOS / Linux / Git Bash
+cp server/.env.example server/.env
+cp client/.env.example client/.env
+```
+
+```powershell
+# Windows PowerShell
+Copy-Item server\.env.example server\.env
+Copy-Item client\.env.example client\.env
+```
+
+**`server/.env`**
+
+```dotenv
+NODE_ENV=development
+PORT=4000
+LOG_LEVEL=info
+
+# Comma-separated list of allowed browser origins
+CORS_ORIGIN=http://localhost:5173
+
+# Rate limiting (per IP)
+RATE_LIMIT_WINDOW_MS=60000
+RATE_LIMIT_MAX=100
+AUTH_RATE_LIMIT_MAX=10
+
+# Auth — use a long random secret outside local development
+JWT_SECRET=change-me-to-a-long-random-string-of-32-chars-min
+JWT_EXPIRES_IN=1h
+
+# Demo account (the password is bcrypt-hashed in memory at startup)
+DEMO_USER_NAME=Demo User
+DEMO_USER_EMAIL=demo@taskportal.dev
+DEMO_USER_PASSWORD=Password123!
+```
+
+**`client/.env`**
+
+```dotenv
+VITE_API_URL=http://localhost:4000/api/v1
+VITE_SOCKET_URL=http://localhost:4000
+```
+
+`.env` files are git-ignored; only the `.env.example` templates are committed. Outside local development, replace `JWT_SECRET` and the demo credentials. One way to generate a secret:
+
+```bash
+node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"
+```
+
+### 4. Install dependencies
+
+```bash
+cd server && npm install
+cd ../client && npm install
+```
+
+### 5. Start both apps (two terminals)
+
+```bash
+# Terminal 1 — API on http://localhost:4000
 cd server
-cp .env.example .env
-npm install
-npm run dev
-
-# 2. Client — http://localhost:5173  (second terminal)
-cd client
-cp .env.example .env
-npm install
 npm run dev
 ```
 
-Open **http://localhost:5173** and sign in with the demo account defined in `server/.env`:
+```bash
+# Terminal 2 — client on http://localhost:5173
+cd client
+npm run dev
+```
+
+The API logs `Server listening` with port 4000 when it is ready; Vite prints the local URL.
+
+### 6. Sign in
+
+Open **http://localhost:5173** and sign in with the demo account from `server/.env`:
 
 | Email | Password |
 |---|---|
 | `demo@taskportal.dev` | `Password123!` |
 
-Storage is in-memory, so the task list starts empty and is cleared whenever the API restarts.
+You land on **Analytics**. Open **Tasks** to create tasks and switch between the **List** and **Board** views. To see real-time updates, open the app in a second browser window and change a task's status in one of them.
+
+Storage is in-memory, so the app starts with no tasks and is emptied whenever the API restarts.
+
+### 7. Run the tests (optional)
+
+```bash
+cd server
+npm test
+```
+
+### Production build
+
+```bash
+# API: compile TypeScript, then run the compiled output
+cd server
+npm run build
+npm start          # set NODE_ENV=production and a real JWT_SECRET in server/.env first
+
+# Client: static files in client/dist, ready for any static host or CDN
+cd client
+npm run build
+npm run preview    # serves the build locally at http://localhost:4173 to check it
+```
+
+When serving the client from a different address, add that origin to `CORS_ORIGIN` on the server. Vite builds `VITE_*` values into the bundle, so set them before running `npm run build`.
+
+### Troubleshooting
+
+| Symptom | Fix |
+|---|---|
+| API exits with `Invalid environment configuration` | `server/.env` is missing or a value is invalid. The message names each field, e.g. `JWT_SECRET` shorter than 32 characters. |
+| `EADDRINUSE` on start | Another process is using the port. Change `PORT` in `server/.env`, then update both `VITE_*` URLs in `client/.env` to match. |
+| Browser console shows a CORS error | `CORS_ORIGIN` must exactly match the address the client is served from, including the port. |
+| `Too many login attempts` | The login rate limit is 10 attempts per minute per IP. Wait a minute, or raise `AUTH_RATE_LIMIT_MAX` locally. |
+| Signed out after restarting the API | Expected: the in-memory demo user gets a new ID on every start, so old tokens no longer match. Sign in again. |
+| A `client/.env` change has no effect | Restart `npm run dev`; Vite reads `.env` only at startup. |
 
 ### Scripts
 
@@ -92,9 +201,9 @@ Storage is in-memory, so the task list starts empty and is cleared whenever the 
 
 ---
 
-## Configuration
+## Environment variables
 
-Both apps read a `.env` file; copy `.env.example` to start. The API **validates its environment with zod at startup and refuses to boot** if anything is missing or invalid, so a misconfigured deploy fails immediately rather than at the first request.
+Reference for the files created in [step 3](#3-create-the-environment-files). The API **validates its environment with zod at startup and refuses to boot** if anything is missing or invalid, so a misconfigured deploy fails immediately rather than at the first request.
 
 **`server/.env`**
 
@@ -113,10 +222,10 @@ Both apps read a `.env` file; copy `.env.example` to start. The API **validates 
 
 **`client/.env`**
 
-| Variable | Default |
-|---|---|
-| `VITE_API_URL` | `http://localhost:4000/api/v1` |
-| `VITE_SOCKET_URL` | `http://localhost:4000` |
+| Variable | Default | Purpose |
+|---|---|---|
+| `VITE_API_URL` | `http://localhost:4000/api/v1` | Base URL of the REST API |
+| `VITE_SOCKET_URL` | `http://localhost:4000` | Socket.IO server (the API's origin) |
 
 ---
 
