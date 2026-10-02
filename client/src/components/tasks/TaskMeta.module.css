@@ -1,0 +1,88 @@
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.pending {
+  background: var(--pill-pending-bg);
+  color: var(--pill-pending-fg);
+}
+
+.pending .dot {
+  background: var(--color-status-pending);
+}
+
+.in-progress {
+  background: var(--pill-progress-bg);
+  color: var(--pill-progress-fg);
+}
+
+.in-progress .dot {
+  background: var(--color-status-progress);
+}
+
+.completed {
+  background: var(--pill-completed-bg);
+  color: var(--pill-completed-fg);
+}
+
+.completed .dot {
+  background: var(--color-status-completed);
+}
+
+.completedOn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--pill-completed-fg);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--chip-bg);
+  color: var(--chip-fg);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.overdue {
+  background: var(--chip-overdue-bg);
+  color: var(--chip-overdue-fg);
+  font-weight: 600;
+}
+
+.today {
+  background: var(--pill-pending-bg);
+  color: var(--pill-pending-fg);
+  font-weight: 600;
+}
+
+.done {
+  background: var(--pill-completed-bg);
+  color: var(--pill-completed-fg);
+}
+
+.none {
+  color: var(--color-text-faint);
+  font-size: 13px;
+}

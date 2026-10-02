@@ -1,0 +1,310 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+/* ---------- Column ---------- */
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 240px;
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  background: #e4e7f6;
+  outline: 2px dashed transparent;
+  outline-offset: -2px;
+  transition: background-color 0.15s ease, outline-color 0.15s ease;
+}
+
+/* While dragging, every column the card can move to shows a dashed outline; the hovered one fills. */
+.droppable {
+  outline-color: #b9bce9;
+}
+
+.over {
+  background: #d9dcf6;
+  outline-color: var(--color-primary);
+}
+
+.columnHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 4px 2px;
+}
+
+.columnTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.columnTitle h3 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot.pending {
+  background: var(--color-status-pending);
+}
+
+.dot.in-progress {
+  background: var(--color-status-progress);
+}
+
+.dot.completed {
+  background: var(--color-status-completed);
+}
+
+.count {
+  min-width: 24px;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--chip-fg);
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.add {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.add:hover {
+  color: var(--color-primary);
+}
+
+.add:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: opacity 0.15s ease;
+}
+
+.refreshing {
+  opacity: 0.75;
+}
+
+.columnState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 28px 12px;
+  border: 1px dashed #c6c9e6;
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.more {
+  align-self: center;
+}
+
+/* ---------- Card ---------- */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--color-surface);
+  box-shadow: 0 2px 6px rgba(31, 34, 64, 0.05);
+  cursor: grab;
+  transition: box-shadow 0.15s ease, opacity 0.15s ease, transform 0.15s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-card);
+}
+
+.card:active {
+  cursor: grabbing;
+}
+
+.dragging {
+  opacity: 0.4;
+  transform: scale(0.98);
+}
+
+.cardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cardTop > :last-child {
+  margin: -8px -8px 0 0;
+}
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.cardDescription {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  line-height: 1.55;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-grid);
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.initial {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.initial.pending {
+  background: var(--pill-pending-bg);
+  color: var(--pill-pending-fg);
+}
+
+.initial.in-progress {
+  background: var(--pill-progress-bg);
+  color: var(--pill-progress-fg);
+}
+
+.initial.completed {
+  background: var(--pill-completed-bg);
+  color: var(--pill-completed-fg);
+}
+
+.cardSkeleton {
+  display: block;
+  height: 112px;
+  border-radius: 16px;
+  background: linear-gradient(90deg, #f1f2f9 25%, #f8f9fc 50%, #f1f2f9 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+  font-size: 13px;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Responsive ---------- */
+
+/* Tablets: columns scroll sideways rather than squeezing cards */
+@media (max-width: 1024px) {
+  .board {
+    grid-template-columns: repeat(3, minmax(280px, 1fr));
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+}
+
+/* Phones: one column at a time, swipe between them, the next one peeking in */
+@media (max-width: 640px) {
+  .board {
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    grid-auto-columns: 84%;
+    gap: 12px;
+    margin: 0 -16px;
+    padding: 0 16px 8px;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 16px;
+    scrollbar-width: none;
+  }
+
+  .board::-webkit-scrollbar {
+    display: none;
+  }
+
+  .column {
+    scroll-snap-align: start;
+    padding: 14px;
+  }
+
+  .add {
+    width: 44px;
+    height: 44px;
+  }
+
+  .card {
+    cursor: default;
+  }
+}

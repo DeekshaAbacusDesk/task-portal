@@ -1,0 +1,81 @@
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding: 0 4px;
+}
+
+.summary {
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.summary strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.pages {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.page,
+.arrow {
+  display: grid;
+  place-items: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 8px;
+  border: none;
+  border-radius: 10px;
+  background: var(--color-surface);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.page:hover:not(.current),
+.arrow:hover:not(:disabled) {
+  color: var(--color-primary);
+}
+
+.page:focus-visible,
+.arrow:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+.current {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-weight: 600;
+}
+
+.arrow:disabled {
+  color: #c9ccdc;
+  cursor: not-allowed;
+}
+
+.gap {
+  min-width: 20px;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .pagination {
+    flex-direction: column-reverse;
+    justify-content: center;
+  }
+
+  .page,
+  .arrow {
+    min-width: 40px;
+    height: 40px;
+  }
+}

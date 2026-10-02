@@ -1,0 +1,52 @@
+.toggle {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+}
+
+.option {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 16px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.option:hover:not(.active) {
+  color: var(--color-primary);
+}
+
+.option:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+.active {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-weight: 600;
+}
+
+/* Phones: icon-only, 44px targets */
+@media (max-width: 640px) {
+  .option {
+    width: 44px;
+    height: 40px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .label {
+    display: none;
+  }
+}

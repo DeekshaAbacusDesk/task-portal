@@ -1,0 +1,38 @@
+.state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 56px 24px;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  text-align: center;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 8px;
+  border-radius: 18px;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.error {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.message {
+  max-width: 360px;
+  margin-bottom: 12px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}

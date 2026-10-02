@@ -1,0 +1,463 @@
+/* ---------- Cards ---------- */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cardTitle {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.cardSubtitle,
+.muted {
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+/* ---------- Status keys (marks carry colour; text never does) ---------- */
+
+.pending {
+  background: var(--color-status-pending);
+}
+
+.in-progress {
+  background: var(--color-status-progress);
+}
+
+.completed {
+  background: var(--color-status-completed);
+}
+
+.key {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* ---------- Stat tiles ---------- */
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px 22px;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.tileLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.tileValue {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.tileCaption {
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+/* ---------- Completion meter ---------- */
+
+.completion {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.hero {
+  font-size: 52px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.meter {
+  height: 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-status-completed-track);
+  overflow: hidden;
+}
+
+.meterFill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--color-status-completed);
+  transition: width 0.4s ease;
+}
+
+/* ---------- Status breakdown (stacked bar) ---------- */
+
+.breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.stackWrap {
+  position: relative;
+  padding-top: 4px;
+}
+
+.stack {
+  display: flex;
+  gap: 2px; /* surface gap between segments */
+  height: 24px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.segment {
+  flex-basis: 0;
+  min-width: 6px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.segment:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: -2px;
+}
+
+.dimmed {
+  opacity: 0.35;
+}
+
+.stackEmpty {
+  display: grid;
+  place-items: center;
+  height: 24px;
+  border-radius: 4px;
+  background: var(--color-grid);
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legendItem {
+  display: grid;
+  grid-template-columns: 10px 1fr auto 48px;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+}
+
+.legendActive {
+  background: #f5f6fb;
+}
+
+.swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.legendLabel {
+  color: var(--color-text);
+}
+
+.legendValue {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.legendShare {
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+/* ---------- Tooltip (values lead, labels follow) ---------- */
+
+.tooltip {
+  position: absolute;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--color-text);
+  color: var(--color-text-inverse);
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 8px 20px rgba(31, 34, 64, 0.2);
+}
+
+.tooltip strong {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tooltip span {
+  opacity: 0.75;
+}
+
+.stackWrap .tooltip {
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ---------- Column chart ---------- */
+
+.columnChart {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.plot {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 8px;
+  height: 220px;
+}
+
+.yAxis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: -7px 0; /* centre tick labels on their gridlines */
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.plotArea {
+  position: relative;
+}
+
+.gridline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-grid);
+}
+
+.columns {
+  position: absolute;
+  inset: 0;
+  display: flex;
+}
+
+.slot {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  cursor: default;
+}
+
+.slotActive {
+  background: rgba(91, 95, 214, 0.06);
+}
+
+.slot:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+
+.column {
+  position: relative;
+  width: min(24px, 60%);
+  min-height: 3px;
+  border-radius: 4px 4px 0 0; /* rounded data-end, square at the baseline */
+  background: var(--color-primary);
+  transition: height 0.3s ease;
+}
+
+.slotActive .column {
+  background: var(--color-primary-hover);
+}
+
+.peakLabel {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--color-text);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.columnTooltip {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.alignRight {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+
+.alignLeft {
+  left: 0;
+  transform: none;
+}
+
+.xAxis {
+  display: flex;
+  margin-left: 40px; /* y-axis width + gap */
+  color: var(--color-text-muted);
+  font-size: 11px;
+}
+
+.xAxis span {
+  /* Equal-width slots that can shrink below their text; a visible label overflows into its hidden neighbours. */
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+/* Keep the most recent label inside the plot's right edge. */
+.xAxis span:last-child {
+  justify-content: flex-end;
+}
+
+.xHidden {
+  visibility: hidden;
+}
+
+.chartEmpty {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.dataTable summary {
+  width: fit-content;
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.dataTable table {
+  width: 100%;
+  margin-top: 12px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.dataTable th,
+.dataTable td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--color-grid);
+  text-align: left;
+}
+
+.dataTable th {
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+.dataTable td:last-child,
+.dataTable th:last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Recent activity ---------- */
+
+.activity {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.activityItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-grid);
+}
+
+.activityText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.activityTitle {
+  overflow: hidden;
+  font-weight: 500;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.viewAll {
+  display: inline-block;
+  margin-top: 14px;
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.viewAll:hover {
+  text-decoration: underline;
+}
+
+/* On narrow plots, label every fourth day only */
+@media (max-width: 640px) {
+  .xAxis span:nth-last-child(4n + 2),
+  .xAxis span:nth-last-child(4n + 3),
+  .xAxis span:nth-last-child(4n + 4) {
+    visibility: hidden;
+  }
+
+  .hero {
+    font-size: 44px;
+  }
+}

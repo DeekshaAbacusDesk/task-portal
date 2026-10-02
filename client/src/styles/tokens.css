@@ -1,0 +1,57 @@
+:root {
+  /* Brand */
+  --color-primary: #5b5fd6;
+  --color-primary-hover: #4b4fc4;
+  --color-primary-soft: #e9eafb;
+  --color-accent: #f5a524;
+
+  /* Surfaces */
+  --color-bg: #eef0fa;
+  --color-surface: #ffffff;
+  --color-border: #e3e5f2;
+
+  /* Text */
+  --color-text: #1f2240;
+  --color-text-muted: #6b7089; /* 4.9:1 on white - captions must stay readable */
+  --color-text-secondary: #4a4f6a;
+  --color-text-faint: #a3a7bd; /* placeholders and empty markers only, never content */
+  --color-text-inverse: #ffffff;
+
+  /* Task status - validated as a chart palette (lightness band, CVD separation); see README */
+  --color-status-pending: #e3921a;
+  --color-status-progress: #5b5fd6;
+  --color-status-completed: #2fb57a;
+  --color-status-completed-track: #ddf4ea;
+
+  /* Status pills: soft fill + dark ink of the same hue (all >= 4.5:1) */
+  --pill-pending-bg: #fdf1dc;
+  --pill-pending-fg: #8a520a;
+  --pill-progress-bg: #e9eafb;
+  --pill-progress-fg: #4045b8;
+  --pill-completed-bg: #ddf4ea;
+  --pill-completed-fg: #1f7a50;
+
+  /* Due chips */
+  --chip-bg: #f3f4fa;
+  --chip-fg: #3d4260;
+  --chip-overdue-bg: #fdecec;
+  --chip-overdue-fg: #b4282e;
+
+  /* Charts */
+  --color-grid: #eceef6;
+
+  /* Feedback */
+  --color-danger: #e5484d;
+  --color-danger-soft: #fdecec;
+  --color-success: #2fb57a;
+
+  /* Shape & depth */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+  --shadow-card: 0 10px 40px rgba(76, 81, 191, 0.08);
+  --shadow-focus: 0 0 0 4px rgba(91, 95, 214, 0.18);
+
+  --font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}

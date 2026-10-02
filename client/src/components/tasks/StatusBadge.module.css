@@ -1,0 +1,26 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.pending {
+  background: var(--color-status-pending);
+}
+
+.in-progress {
+  background: var(--color-status-progress);
+}
+
+.completed {
+  background: var(--color-status-completed);
+}

@@ -1,0 +1,219 @@
+.table {
+  /* Task | Status | Assigned on | Due date | Completed on | actions */
+  --columns: minmax(0, 2.6fr) minmax(118px, 0.9fr) minmax(108px, 0.9fr) minmax(150px, 1.1fr) minmax(118px, 0.9fr) 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: var(--columns);
+  align-items: center;
+  gap: 16px;
+  padding: 0 20px 4px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: opacity 0.15s ease;
+}
+
+.stale {
+  opacity: 0.55;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: var(--columns);
+  align-items: center;
+  gap: 16px;
+  min-height: 72px;
+  padding: 12px 12px 12px 20px;
+  border-radius: 16px;
+  background: var(--color-surface);
+  transition: box-shadow 0.15s ease;
+}
+
+.row:hover {
+  box-shadow: var(--shadow-card);
+}
+
+.titleCell {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.avatar {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.pending {
+  background: var(--pill-pending-bg);
+  color: var(--pill-pending-fg);
+}
+
+.in-progress {
+  background: var(--pill-progress-bg);
+  color: var(--pill-progress-fg);
+}
+
+.completed {
+  background: var(--pill-completed-bg);
+  color: var(--pill-completed-fg);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.title,
+.description {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.title {
+  font-weight: 600;
+}
+
+.description {
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.assigned {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mobileChip {
+  display: none;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Skeleton ---------- */
+
+.skeletonRow:hover {
+  box-shadow: none;
+}
+
+.bar {
+  height: 10px;
+  border-radius: var(--radius-pill);
+}
+
+.shimmer {
+  background: linear-gradient(90deg, #eef0f7 25%, #f6f7fb 50%, #eef0f7 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* ---------- Responsive ---------- */
+
+/* Tablets: drop "Assigned on" (still visible in the edit dialog) */
+@media (max-width: 1180px) {
+  .table {
+    --columns: minmax(0, 2.2fr) minmax(118px, 0.9fr) minmax(140px, 1fr) minmax(118px, 0.9fr) 48px;
+  }
+
+  .hideOnTablet {
+    display: none;
+  }
+}
+
+/* Phones: each row becomes a card — title on top, status pill + key date chip underneath */
+@media (max-width: 640px) {
+  .header {
+    display: none;
+  }
+
+  .row {
+    grid-template-columns: minmax(0, 1fr) 44px;
+    grid-template-areas:
+      'title actions'
+      'chips chips';
+    align-items: start;
+    gap: 10px;
+    padding: 14px 10px 14px 16px;
+  }
+
+  .titleCell {
+    grid-area: title;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .title {
+    white-space: normal;
+    line-height: 1.35;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+  }
+
+  .actions {
+    grid-area: actions;
+    margin: -6px -2px 0 0;
+  }
+
+  /* Status pill and the date chip share one row under the title, aligned with the text */
+  .status {
+    grid-area: chips;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding-left: 48px;
+  }
+
+  .mobileChip {
+    display: inline-flex;
+  }
+
+  .due,
+  .completedCell,
+  .hideOnTablet {
+    display: none;
+  }
+}

@@ -1,0 +1,59 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.message {
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.message strong {
+  color: var(--color-text);
+}
+
+/* Status + due date side by side; stacks on phones */
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  background: #f7f8fd;
+}
+
+.meta dt {
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.meta dd {
+  margin: 2px 0 0;
+  font-weight: 500;
+}
+
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

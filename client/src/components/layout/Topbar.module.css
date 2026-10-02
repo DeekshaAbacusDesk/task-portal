@@ -1,0 +1,114 @@
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 1120px;
+  margin-bottom: 28px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.pageControls {
+  display: flex;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.name {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.iconButton {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.iconButton:hover {
+  background: var(--color-surface);
+  color: var(--color-primary);
+}
+
+.iconButton:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+@media (max-width: 860px) {
+  .topbar {
+    flex-wrap: wrap;
+  }
+
+  .actions {
+    flex: 1;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  .pageControls {
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  .name {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    margin-bottom: 20px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  /* Row 1: title + user controls. Row 2: full-width search. */
+  .actions {
+    display: contents;
+  }
+
+  .title {
+    flex: 1;
+  }
+
+  .pageControls {
+    order: 1;
+    flex-basis: 100%;
+  }
+}

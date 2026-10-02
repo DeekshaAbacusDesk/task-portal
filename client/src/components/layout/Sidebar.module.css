@@ -1,0 +1,80 @@
+.sidebar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  height: 100vh;
+  padding: 28px 20px;
+  background: var(--color-primary);
+  border-radius: 0 28px 28px 0;
+}
+
+.logo {
+  padding: 0 8px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px;
+  border-radius: var(--radius-md);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-inverse);
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--color-text-inverse);
+  outline-offset: 2px;
+}
+
+.active,
+.active:hover {
+  background: var(--color-surface);
+  color: var(--color-primary);
+  box-shadow: 0 6px 18px rgba(31, 34, 64, 0.15);
+}
+
+/* Icon rail on tablets */
+@media (max-width: 1024px) {
+  .sidebar {
+    align-items: center;
+    padding: 28px 14px;
+  }
+
+  .logo {
+    padding: 0;
+  }
+
+  .logo :global(span:last-child),
+  .label {
+    display: none;
+  }
+
+  .link {
+    justify-content: center;
+    padding: 12px;
+  }
+}
+
+/* Phones: the top bar carries the page; sidebar is hidden */
+@media (max-width: 640px) {
+  .sidebar {
+    display: none;
+  }
+}
